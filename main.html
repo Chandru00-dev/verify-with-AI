@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify with AI - Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Hamburger Menu -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="user-info-sidebar">
+                <div class="avatar-circle" id="sidebarAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details-sidebar">
+                    <h2 id="sidebarUserName">Menu</h2>
+                    <span id="sidebarUserEmail"></span>
+                </div>
+            </div>
+            <button class="close-btn" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <button class="menu-item" onclick="startNewChat()">
+            <i class="fas fa-plus"></i> New Chat
+        </button>
+
+        <div class="menu-section">
+            <h3>Chat History</h3>
+            <div class="search-container">
+                <input type="text" id="historySearch" placeholder="Search history..." oninput="searchHistory()">
+                <i class="fas fa-search"></i>
+            </div>
+            <div id="historyList" class="history-list">
+                <!-- History items will be loaded here -->
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <h3>Settings</h3>
+            <div class="setting-item">
+                <label for="themeToggle">
+                    <i class="fas fa-moon"></i> Dark Theme
+                </label>
+                <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+            </div>
+            <div class="setting-item profile-setting" onclick="openProfileModal()">
+                <label>
+                    <i class="fas fa-user-cog"></i> Profile Settings
+                </label>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="header">
+            <button class="hamburger" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Verify with AI</h1>
+            <button class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+
+        <div id="chatContainer" class="chat-container">
+            <div class="welcome-message">
+                <h2>Welcome to Verify with AI!</h2>
+                <p>Upload a video, PDF, or image, or paste a YouTube link to analyze content for truthfulness.</p>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <form id="chatForm" onsubmit="handleSubmit(event)">
+                <div class="input-wrapper">
+                    <input type="text" id="textInput" placeholder="Enter YouTube link or type a message...">
+
+                    <label for="fileInput" class="file-label">
+                        <i class="fas fa-paperclip"></i>
+                    </label>
+                    <input type="file" id="fileInput" accept=".pdf,image/*,video/*" onchange="handleFileSelect()"
+                        style="display: none;">
+
+                    <button type="submit" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div id="filePreview" class="file-preview"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Management Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content profile-modal">
+            <div class="modal-header">
+                <h3>User Profile</h3>
+                <button class="close-modal" onclick="closeProfileModal()">&times;</button>
+            </div>
+            <div class="profile-body">
+                <div class="avatar-upload-section">
+                    <div class="profile-avatar-large" id="profileAvatarLarge">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <label for="avatarInput" class="upload-avatar-btn">
+                        <i class="fas fa-camera"></i> Change Photo
+                    </label>
+                    <input type="file" id="avatarInput" accept="image/*" onchange="handleAvatarSelect()"
+                        style="display: none;">
+                </div>
+
+                <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                    <div class="form-group">
+                        <label for="profileName">Full Name</label>
+                        <input type="text" id="profileName" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmail">Email Address</label>
+                        <input type="email" id="profileEmail" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" onclick="closeProfileModal()">Cancel</button>
+                        <button type="submit" class="save-btn" id="saveProfileBtn">Save Changes</button>
+                    </div>
+                </form>
+                <div id="profileMessage" class="message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Prompt Modal -->
+    <div id="languageModal" class="modal">
+        <div class="modal-content">
+            <h3>Language Preference</h3>
+            <p id="languagePromptText">In which language should I generate the response?</p>
+            <div class="language-options">
+                <button class="language-btn" onclick="selectLanguage('English')">English</button>
+                <button class="language-btn" onclick="selectLanguage('Tamil')">Tamil</button>
+                <button class="language-btn" onclick="selectLanguage('Hindi')">Hindi</button>
+                <button class="language-btn" onclick="selectLanguage('Telugu')">Telugu</button>
+                <button class="language-btn" onclick="selectLanguage('Malayalam')">Malayalam</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
