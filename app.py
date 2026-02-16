@@ -213,6 +213,21 @@ def analyze():
         input_content = request.form.get('input_content', '')
         preferred_language = request.form.get('preferred_language', None)
         
+        # NEW: Check for explicit language requests in the text input
+        if input_content:
+            lower_input = input_content.lower()
+            languages = {
+                'english': 'English',
+                'tamil': 'Tamil',
+                'hindi': 'Hindi',
+                'telugu': 'Telugu'
+            }
+            for lang_key, lang_name in languages.items():
+                if f"in {lang_key}" in lower_input or f"by {lang_key}" in lower_input or f" {lang_key} " in f" {lower_input} ":
+                    preferred_language = lang_name
+                    print(f"[DEBUG] Explicit language request detected: {lang_name}")
+                    break
+
         print(f"[DEBUG] Received request - Type: {input_type}, Content: {input_content[:50] if input_content else 'None'}")
         
         # Handle file upload
@@ -276,13 +291,13 @@ def analyze():
         
         language_instruction = ""
         if preferred_language:
-            language_instruction = f"Generate the response in {preferred_language}. "
+            language_instruction = f"CRITICAL: You MUST generate the entire response in {preferred_language}. This is an explicit user requirement. "
         
         prompt = f"""{prompt_prefix}
 {language_instruction}
 
 Your tasks:
-1. First, detect the language of the content. If it's not English and no preferred language is specified, indicate that a language preference is needed.
+1. First, detect the language of the content. If the user explicitly requested a language in their prompt, prioritize that for the response.
 2. Provide a detailed text summary/description of the content.
 3. Analyze the content for factual accuracy and truthfulness.
 4. Provide:
@@ -358,6 +373,15 @@ Format your response as JSON with this structure:
             error_data = api_response.text
             print(f"[ERROR] OpenRouter API fail: {api_response.status_code}")
             print(f"[ERROR] Response body: {error_data}")
+            
+            # Try to extract a specific error message if available
+            try:
+                error_json = api_response.json()
+                if 'error' in error_json and 'message' in error_json['error']:
+                    return jsonify({'error': f"API Error: {error_json['error']['message']}"}), 500
+            except:
+                pass
+                
             return jsonify({'error': f'API Error ({api_response.status_code})'}), 500
         
         response_json = api_response.json()
