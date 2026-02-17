@@ -1164,4 +1164,57 @@ body {
         height: 40px;
         font-size: 1.2rem;
     }
+
+    .sidebar.collapsed .language-section {
+        display: none;
+    }
+}
+
+/* Language Selection Buttons */
+.lang-btn {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+    border-radius: 0.4rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.lang-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.lang-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Black and White Theme Overrides */
+.bw-theme .about-section-title {
+    color: #000;
+}
+
+.bw-theme .about-section-title::after {
+    background: #000;
+}
+
+.bw-theme .tip-card {
+    border-left-color: #000;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    /* Optional: add a subtle border since we removing color */
+    border-left: 4px solid #000;
+}
+
+.bw-theme .tip-card h4 {
+    color: #000;
+}
+
+.bw-theme .tip-card h4 i {
+    color: #000;
 }

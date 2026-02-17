@@ -85,56 +85,37 @@ async function handleSignup(event) {
     }
 }
 
-function handleGoogleLogin() {
-    const width = 500;
-    const height = 600;
-    const left = (screen.width / 2) - (width / 2);
-    const top = (screen.height / 2) - (height / 2);
+// --- Social Login Handlers ---
 
-    const win = window.open("", "Google Login", `width=${width},height=${height},top=${top},left=${left}`);
-    win.document.write(`
-        <html><body style="font-family: sans-serif; text-align: center; padding: 50px;">
-        <h3>Connecting to Google...</h3>
-        <p>This is a simulated OAuth window.</p>
-        <script>
-            setTimeout(() => {
-                window.opener.postMessage({type: 'GOOGLE_LOGIN_SUCCESS', token: 'mock_google_token'}, '*');
-                window.close();
-            }, 1500);
-        </script>
-        </body></html>
-    `);
+function handleGoogleLogin() {
+    window.location.href = `${API_URL}/login/google`;
 }
 
 function handleMicrosoftLogin() {
-    const width = 500;
-    const height = 600;
-    const left = (screen.width / 2) - (width / 2);
-    const top = (screen.height / 2) - (height / 2);
-
-    const win = window.open("", "Microsoft Login", `width=${width},height=${height},top=${top},left=${left}`);
-    win.document.write(`
-        <html><body style="font-family: sans-serif; text-align: center; padding: 50px;">
-        <h3>Connecting to Microsoft...</h3>
-        <p>This is a simulated OAuth window.</p>
-        <script>
-            setTimeout(() => {
-                window.opener.postMessage({type: 'MICROSOFT_LOGIN_SUCCESS', token: 'mock_ms_token'}, '*');
-                window.close();
-            }, 1500);
-        </script>
-        </body></html>
-    `);
+    window.location.href = `${API_URL}/login/microsoft`;
 }
 
-window.addEventListener('message', function (event) {
-    if (event.data.type === 'GOOGLE_LOGIN_SUCCESS' || event.data.type === 'MICROSOFT_LOGIN_SUCCESS') {
-        localStorage.setItem('userToken', 'social_token_' + Date.now());
-        localStorage.setItem('userId', 'social_user');
-        showMessage('Login successful! Redirecting...', 'success');
-        setTimeout(() => { window.location.href = 'main.html'; }, 1000);
+// Check for social login callback params
+if (window.location.pathname.includes('main.html') || window.location.pathname.includes('login.html')) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const userId = urlParams.get('user_id');
+    const error = urlParams.get('error');
+
+    if (token && userId) {
+        localStorage.setItem('userToken', token);
+        localStorage.setItem('userId', userId);
+        // Clear params from URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+        if (window.location.pathname.includes('login.html')) {
+            window.location.href = 'main.html';
+        }
+    } else if (error) {
+        // Show error message if redirected back with error
+        setTimeout(() => showMessage(decodeURIComponent(error), 'error'), 500);
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
-});
+}
 
 function showMessage(text, type) {
     const el = document.getElementById('message');
@@ -530,19 +511,103 @@ function displayHistoryList(historyItems) {
     `).join('');
 }
 
+// Language Selection
+function setLanguage(lang, btn) {
+    preferredLanguage = lang;
+    localStorage.setItem('preferredLanguage', lang);
+
+    // Update UI
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    if (btn) {
+        btn.classList.add('active');
+    } else {
+        // Find button by text if not passed directly (e.g. on load)
+        const buttons = document.querySelectorAll('.lang-btn');
+        buttons.forEach(b => {
+            if (b.textContent === lang) b.classList.add('active');
+        });
+    }
+}
+
+// Initialize Language from Storage
+if (preferredLanguage) {
+    setLanguage(preferredLanguage, null);
+}
+
 // Sidebar Profile Functions
 function openProfileModal() {
-    loadUserProfile();
-    // Modal logic would go here - simplified for now
-    alert("Profile settings would open here (UI updated)");
+    loadUserProfile(); // Refresh data
+    document.getElementById('profileModal').classList.add('active');
 }
 
 async function loadUserProfile() {
     try {
         const userId = localStorage.getItem('userId');
-        // Mock data or fetch
-        document.getElementById('sidebarUserName').textContent = 'User ' + userId.substring(0, 4);
-    } catch (e) { }
+        if (!userId) return;
+
+        const response = await fetch(`${API_URL}/user/profile?user_id=${userId}`);
+        if (response.ok) {
+            const user = await response.json();
+
+            // Update Sidebar
+            document.getElementById('sidebarUserName').textContent = user.name || 'User';
+            if (user.profile_pic) {
+                const avatar = document.getElementById('sidebarAvatar');
+                avatar.innerHTML = `<img src="${user.profile_pic}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+            } else {
+                document.getElementById('sidebarAvatar').innerHTML = '<i class="fas fa-user"></i>';
+            }
+
+            // Update Modal Inputs
+            const nameInput = document.getElementById('profileNameInput');
+            const emailInput = document.getElementById('profileEmailInput');
+            const picInput = document.getElementById('profilePicInput');
+
+            if (nameInput) nameInput.value = user.name || '';
+            if (emailInput) emailInput.value = user.email || '';
+            if (picInput) picInput.value = user.profile_pic || '';
+        }
+    } catch (e) {
+        console.error("Failed to load profile", e);
+    }
+}
+
+async function handleProfileUpdate(event) {
+    event.preventDefault();
+    const btn = event.target.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+
+    const name = document.getElementById('profileNameInput').value;
+    const profilePic = document.getElementById('profilePicInput').value;
+    const userId = localStorage.getItem('userId');
+
+    try {
+        const response = await fetch(`${API_URL}/user/profile/update`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user_id: userId,
+                name: name,
+                profile_pic: profilePic
+            })
+        });
+
+        if (response.ok) {
+            showMessage('Profile updated successfully!', 'success');
+            document.getElementById('profileModal').classList.remove('active');
+            loadUserProfile(); // Refresh UI
+        } else {
+            const data = await response.json();
+            showMessage(data.error || 'Update failed', 'error');
+        }
+    } catch (error) {
+        showMessage('Connection failed', 'error');
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    }
 }
 
 // Theme

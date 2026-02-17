@@ -1,25 +1,27 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
-import pymysql
-from datetime import datetime
-import json
-import os
 from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta
+import pymysql
+import os
+import requests
+import json
+import base64
 import tempfile
 import traceback
-import requests
-import base64
-import pypdf
-import io
 from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi
 from bs4 import BeautifulSoup
 import re
+from authlib.integrations.flask_client import OAuth
+import pypdf
 
-load_dotenv()
+# Load environment variables
+load_dotenv(override=True)
 
 app = Flask(__name__)
+app.secret_key = os.getenv('SECRET_KEY', 'super_secret_key_for_session') # Required for session
 CORS(app)
 
 # Configure OpenRouter API
@@ -28,11 +30,46 @@ OPENROUTER_API_URL = os.getenv('API_URL')
 MODEL_NAME = os.getenv('MODEL')
 print(f"[INFO] Using OpenRouter with model: {MODEL_NAME}")
 
+# --- OAuth Configuration ---
+oauth = OAuth(app)
+
+# Google OAuth
+google = oauth.register(
+    name='google',
+    client_id=os.getenv('GOOGLE_CLIENT_ID'),
+    client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
+    access_token_url='https://oauth2.googleapis.com/token',
+    access_token_params=None,
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    authorize_params=None,
+    api_base_url='https://www.googleapis.com/oauth2/v1/',
+    userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
+    client_kwargs={'scope': 'openid email profile'},
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration'
+)
+
+# Microsoft OAuth
+microsoft = oauth.register(
+    name='microsoft',
+    client_id=os.getenv('MICROSOFT_CLIENT_ID'),
+    client_secret=os.getenv('MICROSOFT_CLIENT_SECRET'),
+    access_token_url='https://login.microsoftonline.com/common/oauth2/v2.0/token',
+    access_token_params=None,
+    authorize_url='https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
+    authorize_params=None,
+    api_base_url='https://graph.microsoft.com/v1.0/',
+    userinfo_endpoint='https://graph.microsoft.com/v1.0/me',
+    client_kwargs={'scope': 'User.Read'}
+)
+
 # Database configuration
+db_pass = os.getenv('DB_PASSWORD')
+print(f"[INFO] DB Password Loaded: {'Yes' if db_pass else 'No'}")
+
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': '',
+    'password': db_pass or '',  # Validates if None, defaults to empty string if needed
     'database': 'verify_ai'
 }
 
@@ -50,6 +87,8 @@ def get_db_connection():
         return connection
     except Exception as e:
         print(f"Database connection error: {e}")
+        # Print full traceback for debugging
+        traceback.print_exc()
         return None
 
 def get_youtube_content(url):
@@ -203,6 +242,95 @@ def login():
     except Exception as e:
         print(f"Login error: {e}")
         return jsonify({'error': 'Server error'}), 500
+
+@app.route('/api/login/google')
+def login_google():
+    redirect_uri = url_for('authorize_google', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+@app.route('/api/callback/google')
+def authorize_google():
+    try:
+        token = google.authorize_access_token()
+        user_info = google.get('userinfo').json()
+        
+        email = user_info['email']
+        name = user_info['name']
+        google_id = user_info['id']
+        picture = user_info.get('picture', '')
+
+        return handle_social_login(email, name, 'google', google_id, picture)
+    except Exception as e:
+        print(f"Google Auth Error: {e}")
+        return redirect(f"http://localhost:5000/login.html?error=Google+Auth+Failed")
+
+@app.route('/api/login/microsoft')
+def login_microsoft():
+    redirect_uri = url_for('authorize_microsoft', _external=True)
+    return microsoft.authorize_redirect(redirect_uri)
+
+@app.route('/api/callback/microsoft')
+def authorize_microsoft():
+    try:
+        token = microsoft.authorize_access_token()
+        resp = microsoft.get('me')
+        user_info = resp.json()
+        
+        email = user_info.get('mail') or user_info.get('userPrincipalName')
+        name = user_info.get('displayName')
+        ms_id = user_info.get('id')
+        
+        return handle_social_login(email, name, 'microsoft', ms_id, None)
+    except Exception as e:
+        print(f"Microsoft Auth Error: {e}")
+        return redirect(f"http://localhost:5000/login.html?error=Microsoft+Auth+Failed")
+
+def handle_social_login(email, name, provider, provider_id, profile_pic):
+    conn = get_db_connection()
+    if not conn:
+        return redirect("http://localhost:5000/login.html?error=Database+Error")
+    
+    try:
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        
+        # Check if user exists
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        user = cursor.fetchone()
+        
+        if user:
+            # Update existing user with provider info if not set
+            if not user.get('provider_id'):
+                cursor.execute(
+                    "UPDATE users SET auth_provider=%s, provider_id=%s, profile_pic=COALESCE(%s, profile_pic) WHERE id=%s",
+                    (provider, provider_id, profile_pic, user['id'])
+                )
+                conn.commit()
+            user_id = user['id']
+            user_name = user['name']
+        else:
+            # Create new user
+            cursor.execute(
+                "INSERT INTO users (name, email, password, auth_provider, provider_id, profile_pic) VALUES (%s, %s, NULL, %s, %s, %s)",
+                (name, email, provider, provider_id, profile_pic)
+            )
+            conn.commit()
+            user_id = cursor.lastrowid
+            user_name = name
+            
+        cursor.close()
+        conn.close()
+        
+        # Generate token
+        token = f"token_{user_id}_{datetime.now().timestamp()}"
+        
+        # Redirect to frontend with token
+        return redirect(f"http://localhost:5000/main.html?token={token}&user_id={user_id}&name={user_name}")
+
+    except Exception as e:
+        print(f"Social Login DB Error: {e}")
+        return redirect("http://localhost:5000/login.html?error=Login+Process+Failed")
+
+
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze():

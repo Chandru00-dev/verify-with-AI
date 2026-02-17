@@ -16,7 +16,9 @@
     <nav
         style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; background: var(--surface-color); border-bottom: 1px solid var(--border-color);">
         <div style="font-weight: 700; font-size: 1.5rem; color: var(--primary-color);">Verify with AI</div>
-        <div>
+        <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <a href="about.html" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">About
+                Us</a>
             <a href="login.html" class="primary-button">Sign In</a>
         </div>
     </nav>
@@ -31,8 +33,7 @@
                     style="font-size: 1.1rem; padding: 1rem 2rem;">
                     Start Analysis
                 </button>
-                <button class="secondary-button"
-                    onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})"
+                <button class="secondary-button" onclick="window.location.href='about.html'"
                     style="font-size: 1.1rem; padding: 1rem 2rem;">
                     Learn More
                 </button>
@@ -111,7 +112,8 @@
                     <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
                         <div
                             style="width: 25px; height: 25px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">
-                            <i class="fas fa-robot"></i></div>
+                            <i class="fas fa-robot"></i>
+                        </div>
                         <div
                             style="background: white; padding: 0.8rem; border-radius: 0 0.8rem 0.8rem 0.8rem; font-size: 0.85rem; color: var(--text-primary); border: 1px solid var(--border-color);">
                             Upload a PDF or paste a link to check truthfulness.
@@ -122,7 +124,8 @@
                     <div style="display: flex; gap: 0.5rem; align-items: flex-start; flex-direction: row-reverse;">
                         <div
                             style="width: 25px; height: 25px; background: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">
-                            <i class="fas fa-user"></i></div>
+                            <i class="fas fa-user"></i>
+                        </div>
                         <div
                             style="background: var(--primary-light); padding: 0.8rem; border-radius: 0.8rem 0 0.8rem 0.8rem; font-size: 0.85rem; color: var(--primary-dark); text-align: right;">
                             <div
@@ -137,7 +140,8 @@
                     <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
                         <div
                             style="width: 25px; height: 25px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">
-                            <i class="fas fa-robot"></i></div>
+                            <i class="fas fa-robot"></i>
+                        </div>
                         <div
                             style="background: white; padding: 0.8rem; border-radius: 0 0.8rem 0.8rem 0.8rem; font-size: 0.85rem; color: var(--text-primary); border: 1px solid var(--border-color); width: 100%;">
                             <strong>Analysis Complete:</strong><br>
@@ -159,166 +163,6 @@
     <footer
         style="background-color: var(--bg-color); padding: 3rem 2rem; border-top: 1px solid var(--border-color); text-align: center;">
         <p style="color: var(--text-secondary); font-size: 0.9rem;">&copy; 2026 Verify with AI. All rights reserved.</p>
-    </footer>
-
-</body>
-
-</html>
-
-<body class="about-page">
-
-    <header class="about-header">
-        <div class="about-container animate-up">
-            <h1>Verify with AI</h1>
-            <p>Truth matters. We help you separate fact from fiction — fast, transparently, and with real evidence.</p>
-            <button class="primary-button" onclick="window.location.href='login.html'">
-                <i class="fas fa-rocket"></i> Start Now
-            </button>
-        </div>
-    </header>
-
-    <section class="about-section animate-fade">
-        <div class="about-container">
-            <h2 class="about-section-title">Our Mission</h2>
-
-            <div class="mission-card">
-                <h2>Make truth accessible to everyone</h2>
-                <p>In a world filled with information — and misinformation — we believe everyone deserves clear,
-                    evidence-based answers.</p>
-                <p>Verify with AI was created to help users quickly understand <strong>what is likely true</strong>,
-                    <strong>what is probably false</strong>, and most importantly — <strong>why</strong>, with
-                    transparent sources and reasoning.
-                </p>
-                <p>We don't just give opinions. We analyze content using advanced AI, cross-reference claims, and show
-                    you the evidence trail.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="about-section" style="background: var(--about-light-gray);">
-        <div class="about-container">
-            <h2 class="about-section-title">How It Works</h2>
-            <div class="steps-container">
-                <div class="step-card animate-up" style="animation-delay: 0.1s;">
-                    <div class="step-number">1</div>
-                    <h3>Create Account</h3>
-                    <p>Login or signup to securely store your analysis history and preferences.</p>
-                </div>
-                <div class="step-card animate-up" style="animation-delay: 0.3s;">
-                    <div class="step-number">2</div>
-                    <h3>Input Content</h3>
-                    <p>Paste a YouTube URL, upload a PDF, or drop an image into the analyzer.</p>
-                </div>
-                <div class="step-card animate-up" style="animation-delay: 0.5s;">
-                    <div class="step-number">3</div>
-                    <h3>Wait for AI</h3>
-                    <p>Our advanced models scan transcripts, metadata, and cross-reference facts.</p>
-                </div>
-                <div class="step-card animate-up" style="animation-delay: 0.7s;">
-                    <div class="step-number">4</div>
-                    <h3>Get Evidence</h3>
-                    <p>Receive a clear report with truth percentages and specific source citations.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="about-section">
-        <div class="about-container">
-            <h2 class="about-section-title">What Verify With AI Offers</h2>
-
-            <div class="features-grid">
-                <div class="feature-item animate-up">
-                    <div class="feature-icon"><i class="fas fa-video"></i></div>
-                    <h3>YouTube Video Analysis</h3>
-                    <p>Paste any YouTube link — we summarize, fact-check key claims, and show truth/false percentages
-                        with sources.</p>
-                </div>
-
-                <div class="feature-item animate-up">
-                    <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
-                    <h3>PDF & Document Checking</h3>
-                    <p>Upload articles, reports, research papers — get clear truth scoring and highlighted misleading
-                        statements.</p>
-                </div>
-
-                <div class="feature-item animate-up">
-                    <div class="feature-icon"><i class="fas fa-image"></i></div>
-                    <h3>Image & Meme Verification</h3>
-                    <p>Check if that viral image, screenshot or infographic is real, edited, or taken out of context.
-                    </p>
-                </div>
-
-                <div class="feature-item animate-up">
-                    <div class="feature-icon"><i class="fas fa-language"></i></div>
-                    <h3>Multilingual Support</h3>
-                    <p>Analyze content in Tamil, Hindi, Telugu, Malayalam, or English to get answers in your language.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="about-section" style="background: var(--about-white);">
-        <div class="about-container">
-            <h2 class="about-section-title">Pro Tips for Accuracy</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: var(--about-text-light);">How to prompt the AI for
-                the best possible analysis results.</p>
-
-            <div class="tips-grid">
-                <div class="tip-card animate-up" style="animation-delay: 0.1s;">
-                    <h4><i class="fas fa-bullseye"></i> Be Specific</h4>
-                    <p>Instead of "Analyze this," try "Check the health claims mentioned in the first 5 minutes of this
-                        video."</p>
-                </div>
-
-                <div class="tip-card animate-up" style="animation-delay: 0.2s;">
-                    <h4><i class="fas fa-search-plus"></i> Request Sources</h4>
-                    <p>Always ask for citations: "Provide the primary research papers or news articles that support your
-                        conclusion."</p>
-                </div>
-
-                <div class="tip-card animate-up" style="animation-delay: 0.3s;">
-                    <h4><i class="fas fa-globe"></i> Define Language</h4>
-                    <p>Get localized results by prompting in your language: "இந்த வீடியோவின் உண்மையை தமிழிலேயே
-                        ஆராயவும்."</p>
-                </div>
-
-                <div class="tip-card animate-up" style="animation-delay: 0.4s;">
-                    <h4><i class="fas fa-lightbulb"></i> Use Context</h4>
-                    <p>Mention what the file is: "This PDF is a political manifesto, verify the economic statistics
-                        mentioned on page 4."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="start-now-container animate-fade">
-        <div class="about-container">
-            <h2 class="about-section-title">Ready to Seek the Truth?</h2>
-            <p style="margin-bottom: 2rem; font-size: 1.1rem; color: var(--about-text-light);">Join US.</p>
-            <button class="primary-button" style="padding: 1.2rem 3rem; font-size: 1.3rem;"
-                onclick="window.location.href='login.html'">
-                Get Started for Free
-            </button>
-        </div>
-    </section>
-
-    <footer class="about-footer">
-        <div class="about-container">
-            <h3>Verify with AI</h3>
-            <p style="margin: 1rem 0 1.5rem;">Truth. Evidence. Clarity.</p>
-
-            <div class="social-links">
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-
-            <p style="margin-top: 2rem; opacity: 0.8; font-size: 0.95rem;">
-                &copy; 2026 Verify with AI.
-            </p>
-        </div>
     </footer>
 
 </body>
