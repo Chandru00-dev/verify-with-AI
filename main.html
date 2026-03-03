@@ -122,43 +122,73 @@
         </main>
     </div>
 
-    <!-- Modals -->
+    <!-- Profile Settings Modal -->
     <div class="modal-overlay" id="profileModal" onclick="if(event.target === this) this.classList.remove('active')">
-        <div class="modal-container">
-            <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
-                Profile Settings</h3>
+        <div class="modal-container" style="max-width: 460px;">
+            <div
+                style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid var(--border-color);">
+                <h3 style="margin:0; font-size:1.1rem;">⚙️ Profile Settings</h3>
+                <button onclick="document.getElementById('profileModal').classList.remove('active')"
+                    style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:1.2rem;"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Avatar preview -->
+            <div style="text-align:center; margin-bottom:1.5rem;">
+                <div id="profileAvatarPreview"
+                    style="width:72px; height:72px; border-radius:50%; background:var(--primary-color); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 0.5rem;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <p style="font-size:0.8rem; color:var(--text-secondary); margin:0;">Your profile picture</p>
+            </div>
 
             <form onsubmit="handleProfileUpdate(event)">
-                <div style="margin-bottom: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500;">Display
-                        Name</label>
+                <!-- Name -->
+                <div style="margin-bottom:1rem;">
+                    <label
+                        style="display:block; margin-bottom:0.4rem; font-size:0.85rem; font-weight:600; color:var(--text-secondary);">DISPLAY
+                        NAME</label>
                     <input type="text" id="profileNameInput" class="auth-input" placeholder="Enter your name" required>
                 </div>
 
-                <div style="margin-bottom: 1rem;">
+                <!-- Email (read-only) -->
+                <div style="margin-bottom:1rem;">
                     <label
-                        style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500;">Email</label>
+                        style="display:block; margin-bottom:0.4rem; font-size:0.85rem; font-weight:600; color:var(--text-secondary);">EMAIL</label>
                     <input type="email" id="profileEmailInput" class="auth-input" disabled
-                        style="opacity: 0.7; cursor: not-allowed;">
-                    <small style="color: var(--text-secondary);">Email cannot be changed.</small>
+                        style="opacity:0.6; cursor:not-allowed;">
+                    <small style="color:var(--text-secondary); font-size:0.78rem;">Email cannot be changed.</small>
                 </div>
 
-                <div style="margin-bottom: 1.5rem;">
-                    <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500;">Profile
-                        Picture URL</label>
+                <!-- Phone Number -->
+                <div style="margin-bottom:1rem;">
+                    <label
+                        style="display:block; margin-bottom:0.4rem; font-size:0.85rem; font-weight:600; color:var(--text-secondary);">PHONE
+                        NUMBER</label>
+                    <input type="tel" id="profilePhoneInput" class="auth-input" placeholder="+91 00000 00000">
+                </div>
+
+                <!-- Profile Picture URL -->
+                <div style="margin-bottom:1.5rem;">
+                    <label
+                        style="display:block; margin-bottom:0.4rem; font-size:0.85rem; font-weight:600; color:var(--text-secondary);">PROFILE
+                        PICTURE URL</label>
                     <input type="url" id="profilePicInput" class="auth-input"
                         placeholder="https://example.com/avatar.jpg">
-                    <small style="color: var(--text-secondary);">Or leave blank to use default.</small>
+                    <small style="color:var(--text-secondary); font-size:0.78rem;">Leave blank to use default.</small>
                 </div>
 
-                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <!-- Actions -->
+                <div style="display:flex; gap:1rem; justify-content:flex-end;">
                     <button type="button" class="secondary-button"
                         onclick="document.getElementById('profileModal').classList.remove('active')">Cancel</button>
-                    <button type="submit" class="primary-button">Save Changes</button>
+                    <button type="submit" class="primary-button"><i class="fas fa-save"
+                            style="margin-right:0.4rem;"></i>Save Changes</button>
                 </div>
             </form>
         </div>
     </div>
+
 
     <script src="script.js"></script>
 </body>

@@ -150,7 +150,7 @@ if (window.location.pathname.includes('main.html')) {
     } else {
         currentUserId = localStorage.getItem('userId');
 
-        loadChatHistory();
+        loadChatHistoryAndCache();
         loadUserProfile();
         setupInputHandlers();
     }
@@ -504,12 +504,63 @@ function displayHistoryList(historyItems) {
         return;
     }
 
-    historyList.innerHTML = historyItems.map(item => `
-        <div class="history-item" onclick="loadHistoryItem(${item.id})">
-            <div>${item.input_content.substring(0, 30)}...</div>
-        </div>
-    `).join('');
+    historyList.innerHTML = historyItems.map(item => {
+        const iconMap = { pdf: 'fa-file-pdf', link: 'fa-link', image: 'fa-image', video: 'fa-video', text: 'fa-align-left' };
+        const icon = iconMap[item.input_type] || 'fa-file';
+        const preview = item.input_content ? item.input_content.substring(0, 35) : 'Analysis';
+        const date = new Date(item.timestamp).toLocaleDateString();
+        return `
+        <div class="history-item" onclick="loadHistoryItem(${item.id})" data-id="${item.id}">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+                <i class="fas ${icon}" style="color:var(--primary-color); font-size:0.85rem;"></i>
+                <div style="flex:1; overflow:hidden;">
+                    <div style="font-size:0.85rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${preview}...</div>
+                    <div style="font-size:0.75rem; color:var(--text-secondary);">${date}</div>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
 }
+
+// --- Cache history data for click-to-load ---
+let historyCache = [];
+
+async function loadChatHistoryAndCache() {
+    try {
+        const response = await fetch(`${API_URL}/history?user_id=${currentUserId}`);
+        const data = await response.json();
+        if (response.ok) {
+            historyCache = data.history || [];
+            displayHistoryList(historyCache);
+        }
+    } catch (error) {
+        console.error('Error loading history:', error);
+    }
+}
+
+function loadHistoryItem(id) {
+    const item = historyCache.find(h => h.id == id);
+    if (!item) return;
+
+    // Clear chat and show this history item
+    const chatArea = document.getElementById('chatContainer');
+    chatArea.innerHTML = '';
+
+    // Show user message
+    addMessageToChat('user', item.input_content || '');
+
+    // Parse and display stored analysis result
+    try {
+        let analysisData = typeof item.response === 'string' ? JSON.parse(item.response) : item.response;
+        displayAnalysisResult(analysisData);
+    } catch (e) {
+        addMessageToChat('bot', item.response || 'No analysis data available.');
+    }
+
+    // Close sidebar on mobile
+    if (window.innerWidth < 768) toggleSidebar();
+}
+
 
 // Language Selection
 function setLanguage(lang, btn) {
@@ -562,10 +613,12 @@ async function loadUserProfile() {
             const nameInput = document.getElementById('profileNameInput');
             const emailInput = document.getElementById('profileEmailInput');
             const picInput = document.getElementById('profilePicInput');
+            const phoneInput = document.getElementById('profilePhoneInput');
 
             if (nameInput) nameInput.value = user.name || '';
             if (emailInput) emailInput.value = user.email || '';
             if (picInput) picInput.value = user.profile_pic || '';
+            if (phoneInput) phoneInput.value = user.phone || localStorage.getItem('userPhone') || '';
         }
     } catch (e) {
         console.error("Failed to load profile", e);
@@ -581,6 +634,8 @@ async function handleProfileUpdate(event) {
 
     const name = document.getElementById('profileNameInput').value;
     const profilePic = document.getElementById('profilePicInput').value;
+    const phone = document.getElementById('profilePhoneInput') ? document.getElementById('profilePhoneInput').value : '';
+    if (phone) localStorage.setItem('userPhone', phone);
     const userId = localStorage.getItem('userId');
 
     try {
@@ -590,6 +645,7 @@ async function handleProfileUpdate(event) {
             body: JSON.stringify({
                 user_id: userId,
                 name: name,
+                phone: phone,
                 profile_pic: profilePic
             })
         });
