@@ -1,5 +1,6 @@
-// API Base URL
-const API_URL = 'http://localhost:5000/api';
+// API Base URL - Dynamically uses current domain
+const BASE_URL = window.location.origin === 'null' ? 'http://localhost:5000' : window.location.origin;
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:5000/api' : `${BASE_URL}/api`;
 
 // Current state
 let selectedFile = null;

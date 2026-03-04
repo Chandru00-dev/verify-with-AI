@@ -262,7 +262,8 @@ def authorize_google():
         return handle_social_login(email, name, 'google', google_id, picture)
     except Exception as e:
         print(f"Google Auth Error: {e}")
-        return redirect(f"http://localhost:5000/login.html?error=Google+Auth+Failed")
+        base_url = request.host_url.rstrip('/')
+        return redirect(f"{base_url}/login.html?error=Google+Auth+Failed")
 
 @app.route('/api/login/microsoft')
 def login_microsoft():
@@ -283,12 +284,14 @@ def authorize_microsoft():
         return handle_social_login(email, name, 'microsoft', ms_id, None)
     except Exception as e:
         print(f"Microsoft Auth Error: {e}")
-        return redirect(f"http://localhost:5000/login.html?error=Microsoft+Auth+Failed")
+        base_url = request.host_url.rstrip('/')
+        return redirect(f"{base_url}/login.html?error=Microsoft+Auth+Failed")
 
 def handle_social_login(email, name, provider, provider_id, profile_pic):
     conn = get_db_connection()
     if not conn:
-        return redirect("http://localhost:5000/login.html?error=Database+Error")
+        base_url = request.host_url.rstrip('/')
+        return redirect(f"{base_url}/login.html?error=Database+Error")
     
     try:
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -324,11 +327,13 @@ def handle_social_login(email, name, provider, provider_id, profile_pic):
         token = f"token_{user_id}_{datetime.now().timestamp()}"
         
         # Redirect to frontend with token
-        return redirect(f"http://localhost:5000/main.html?token={token}&user_id={user_id}&name={user_name}")
+        base_url = request.host_url.rstrip('/')
+        return redirect(f"{base_url}/main.html?token={token}&user_id={user_id}&name={user_name}")
 
     except Exception as e:
         print(f"Social Login DB Error: {e}")
-        return redirect("http://localhost:5000/login.html?error=Login+Process+Failed")
+        base_url = request.host_url.rstrip('/')
+        return redirect(f"{base_url}/login.html?error=Login+Process+Failed")
 
 
 
@@ -454,7 +459,7 @@ Format your response as JSON with this structure:
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "http://localhost:5000",
+            "HTTP-Referer": request.host_url.rstrip('/'),
             "X-Title": "Verify with AI"
         }
         
