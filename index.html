@@ -11,160 +11,160 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body>
-
-    <nav
-        style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; background: var(--surface-color); border-bottom: 1px solid var(--border-color);">
-        <div style="font-weight: 700; font-size: 1.5rem; color: var(--primary-color);">Verify with AI</div>
-        <div style="display: flex; gap: 1.5rem; align-items: center;">
-            <a href="about.html" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">About
-                Us</a>
-            <a href="login.html" class="primary-button">Sign In</a>
+<body class="landing-body">
+    <nav class="glass-nav" style="padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div style="background: var(--primary-gradient); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <div style="font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em;" class="text-gradient">Verify with AI</div>
+        </div>
+        <div style="display: flex; gap: 2rem; align-items: center;">
+            <a href="about.html" style="color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 1.05rem; transition: color 0.3s; opacity: 0.8;">About Us</a>
+            <a href="login.html" class="primary-button btn-glow" style="border-radius: 2rem; padding: 0.6rem 1.8rem;">
+                Sign In
+            </a>
         </div>
     </nav>
 
-    <header class="landing-hero">
-        <div style="max-width: 800px;">
-            <h1>Truth. Evidence. Clarity.</h1>
-            <p>Advanced AI-powered analysis to verify content credibility. Upload documents, analyze videos, and
-                separate fact from fiction with evidence-backed reporting.</p>
-            <div style="display: flex; gap: 1rem; justify-content: center;">
-                <button class="primary-button" onclick="window.location.href='login.html'"
-                    style="font-size: 1.1rem; padding: 1rem 2rem;">
-                    Start Analysis
+    <header class="hero-section">
+        <div style="max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 10;">
+            <div class="premium-badge animate-up" style="animation-delay: 0.1s;">✨ Advanced Generative AI</div>
+            <h1 class="animate-up" style="font-size: 4.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.04em; animation-delay: 0.2s;">
+                Truth. Evidence. <br><span class="text-gradient">Absolute Clarity.</span>
+            </h1>
+            <p class="animate-up" style="font-size: 1.25rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto 3rem; line-height: 1.8; animation-delay: 0.3s;">
+                Advanced AI-powered analysis to verify content credibility. Upload documents, analyze videos, and separate fact from fiction with evidence-backed reporting.
+            </p>
+            <div class="animate-up" style="display: flex; gap: 1.5rem; justify-content: center; animation-delay: 0.4s;">
+                <button class="primary-button btn-glow" onclick="window.location.href='login.html'" style="font-size: 1.1rem; padding: 1.2rem 2.5rem; border-radius: 3rem; font-weight: 700;">
+                    Start Analysis <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
                 </button>
-                <button class="secondary-button" onclick="window.location.href='about.html'"
-                    style="font-size: 1.1rem; padding: 1rem 2rem;">
+                <button class="secondary-button glass-panel" onclick="window.location.href='about.html'" style="font-size: 1.1rem; padding: 1.2rem 2.5rem; border-radius: 3rem; font-weight: 600; border: 1px solid var(--border-color);">
                     Learn More
                 </button>
             </div>
         </div>
+        <div style="position: absolute; top: -10%; left: -5%; width: 400px; height: 400px; background: rgba(37, 99, 235, 0.4); filter: blur(100px); border-radius: 50%; z-index: 0; pointer-events: none;"></div>
+        <div style="position: absolute; bottom: -10%; right: -5%; width: 400px; height: 400px; background: rgba(124, 58, 237, 0.4); filter: blur(100px); border-radius: 50%; z-index: 0; pointer-events: none;"></div>
     </header>
 
-    <section id="features" style="padding: 4rem 2rem; background-color: var(--bg-color);">
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <h2 style="font-size: 2.25rem; margin-bottom: 1rem;">Comprehensive Analysis</h2>
-            <p style="color: var(--text-secondary);">Powerful tools designed for researchers, journalists, and curious
-                minds.</p>
+    <section id="features" style="padding: 6rem 2rem; background-color: var(--surface-color); position: relative; z-index: 10;">
+        <div style="text-align: center; margin-bottom: 5rem;">
+            <h2 style="font-size: 2.8rem; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -0.03em;">Comprehensive Analysis</h2>
+            <p style="color: var(--text-secondary); font-size: 1.15rem; max-width: 600px; margin: 0 auto;">Powerful tools designed for researchers, journalists, and curious minds seeking authentic information.</p>
         </div>
 
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-video"></i></div>
-                <h3>Multimedia Verification</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem;">Analyze YouTube videos and local files. We
-                    extract transcripts, cross-reference claims, and identify misleading edits or out-of-context
-                    information.</p>
+        <div class="bento-grid">
+            <div class="premium-card animate-up" style="animation-delay: 0.1s;">
+                <div class="feature-icon" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%); width: 64px; height: 64px; font-size: 1.8rem; margin-bottom: 2rem;">
+                    <i class="fas fa-video text-gradient"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-weight: 700;">Multimedia Verification</h3>
+                <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7;">Analyze YouTube videos and local files. We extract transcripts, cross-reference claims, and identify misleading edits or out-of-context information instantly.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
-                <h3>Document Auditing</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem;">Upload PDF reports or articles. Get a
-                    line-by-line breakdown of factual accuracy, supported by external citations and primary sources.</p>
+            <div class="premium-card animate-up" style="animation-delay: 0.3s;">
+                <div class="feature-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%); color: #10B981; width: 64px; height: 64px; font-size: 1.8rem; margin-bottom: 2rem;">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-weight: 700;">Document Auditing</h3>
+                <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7;">Upload PDF reports or articles. Get a line-by-line breakdown of factual accuracy, supported by external citations and primary sources verified by our engine.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-language"></i></div>
-                <h3>Multi-Language Support</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem;">Native support for English, Tamil, Hindi,
-                    and Telugu. Receive analysis in your preferred language without losing nuance.</p>
+            <div class="premium-card animate-up" style="animation-delay: 0.5s;">
+                <div class="feature-icon" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.15) 100%); color: #F59E0B; width: 64px; height: 64px; font-size: 1.8rem; margin-bottom: 2rem;">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-weight: 700;">Multi-Language Support</h3>
+                <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7;">Native support for English, Tamil, Hindi, and Telugu. Receive analysis in your preferred language without losing nuance or cultural context.</p>
             </div>
         </div>
     </section>
 
-    <section
-        style="padding: 4rem 2rem; background-color: var(--surface-color); border-top: 1px solid var(--border-color);">
-        <div
-            style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
-            <div>
-                <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Experience the Power</h2>
-                <div style="display: flex; flex-direction: column; gap: 2rem;">
-                    <div style="display: flex; gap: 1rem;">
-                        <div
-                            style="width: 32px; height: 32px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">
-                            1</div>
+    <section style="padding: 6rem 2rem; background: var(--bg-color); border-top: 1px solid var(--border-color); position: relative; overflow: hidden;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;">
+            <div class="animate-up" style="animation-delay: 0.2s;">
+                <div class="premium-badge">Demo</div>
+                <h2 style="font-size: 3rem; margin-bottom: 2rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em;">Experience the <br><span class="text-gradient">Analytical Power</span></h2>
+                <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+                    <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                        <div style="width: 48px; height: 48px; background: var(--primary-gradient); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);">1</div>
                         <div>
-                            <h4 style="margin-bottom: 0.5rem;">Input Data</h4>
-                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Provide a URL or upload a file.
-                                Our system securely processes text, audio, and visual data.</p>
+                            <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 700;">Input Data</h4>
+                            <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6;">Provide a URL or upload a file. Our system securely processes text, audio, and visual data rapidly.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Use Container for Demo -->
-            <div
-                style="background: var(--bg-color); padding: 1rem; border-radius: 1rem; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 450px; width: 100%;">
-                <div
-                    style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
-                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Verify with AI
-                        Demo</span>
-                    <div style="display: flex; gap: 0.3rem;">
-                        <div style="width: 10px; height: 10px; background: #EF4444; border-radius: 50%;"></div>
-                        <div style="width: 10px; height: 10px; background: #F59E0B; border-radius: 50%;"></div>
-                        <div style="width: 10px; height: 10px; background: #10B981; border-radius: 50%;"></div>
+            <div class="glass-panel animate-up" style="padding: 1.5rem; animation-delay: 0.4s; position: relative;">
+                <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 12px; height: 12px; background: #EF4444; border-radius: 50%;"></div>
+                        <div style="width: 12px; height: 12px; background: #F59E0B; border-radius: 50%;"></div>
+                        <div style="width: 12px; height: 12px; background: #10B981; border-radius: 50%;"></div>
                     </div>
+                    <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.05em; text-transform: uppercase;">Engine Monitor</span>
+                    <i class="fas fa-cog" style="color: var(--text-secondary);"></i>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                    <!-- Bot Message -->
-                    <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
-                        <div
-                            style="width: 25px; height: 25px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                        <div style="width: 32px; height: 32px; background: var(--primary-gradient); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; flex-shrink: 0;">
                             <i class="fas fa-robot"></i>
                         </div>
-                        <div
-                            style="background: white; padding: 0.8rem; border-radius: 0 0.8rem 0.8rem 0.8rem; font-size: 0.85rem; color: var(--text-primary); border: 1px solid var(--border-color);">
+                        <div style="background: var(--surface-color); padding: 1rem 1.2rem; border-radius: 0 1rem 1rem 1rem; font-size: 0.95rem; color: var(--text-primary); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
                             Upload a PDF or paste a link to check truthfulness.
                         </div>
                     </div>
 
-                    <!-- Simulated User Input with PDF Tag -->
-                    <div style="display: flex; gap: 0.5rem; align-items: flex-start; flex-direction: row-reverse;">
-                        <div
-                            style="width: 25px; height: 25px; background: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">
+                    <div style="display: flex; gap: 1rem; align-items: flex-start; flex-direction: row-reverse;">
+                        <div style="width: 32px; height: 32px; background: var(--secondary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; flex-shrink: 0;">
                             <i class="fas fa-user"></i>
                         </div>
-                        <div
-                            style="background: var(--primary-light); padding: 0.8rem; border-radius: 0.8rem 0 0.8rem 0.8rem; font-size: 0.85rem; color: var(--primary-dark); text-align: right;">
-                            <div
-                                style="display: inline-flex; align-items: center; gap: 0.3rem; background: rgba(255,255,255,0.5); padding: 0.2rem 0.5rem; border-radius: 0.3rem; margin-bottom: 0.3rem; font-size: 0.75rem;">
-                                <i class="fas fa-file-pdf"></i> news_report.pdf
+                        <div style="background: rgba(37, 99, 235, 0.08); padding: 1rem 1.2rem; border-radius: 1rem 0 1rem 1rem; font-size: 0.95rem; color: var(--text-primary); text-align: right; border: 1px solid rgba(37, 99, 235, 0.1);">
+                            <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--surface-color); padding: 0.4rem 0.8rem; border-radius: 0.5rem; margin-bottom: 0.5rem; font-size: 0.8rem; border: 1px solid var(--border-color); font-weight: 600;">
+                                <i class="fas fa-file-pdf" style="color: #EF4444;"></i> news_report.pdf
                             </div><br>
                             Is this report accurate?
                         </div>
                     </div>
 
-                    <!-- Analysis Result -->
-                    <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
-                        <div
-                            style="width: 25px; height: 25px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">
+                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                        <div style="width: 32px; height: 32px; background: var(--primary-gradient); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; flex-shrink: 0;">
                             <i class="fas fa-robot"></i>
                         </div>
-                        <div
-                            style="background: white; padding: 0.8rem; border-radius: 0 0.8rem 0.8rem 0.8rem; font-size: 0.85rem; color: var(--text-primary); border: 1px solid var(--border-color); width: 100%;">
-                            <strong>Analysis Complete:</strong><br>
-                            <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem; font-size: 0.75rem;">
-                                <span style="color: #10B981; font-weight: 600;">True: 85%</span>
-                                <span style="color: #EF4444; font-weight: 600;">False: 15%</span>
+                        <div style="background: var(--surface-color); padding: 1.2rem; border-radius: 0 1rem 1rem 1rem; font-size: 0.95rem; color: var(--text-primary); border: 1px solid var(--border-color); width: 100%; box-shadow: var(--shadow-md);">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                                <i class="fas fa-check-circle" style="color: var(--primary-color);"></i>
+                                <strong style="font-size: 1.05rem;">Analysis Complete</strong>
                             </div>
-                            <div
-                                style="width: 100%; height: 4px; background: #e5e7eb; border-radius: 2px; margin-top: 0.3rem; overflow: hidden;">
-                                <div style="width: 85%; height: 100%; background: #10B981;"></div>
+                            <div style="margin-top: 0.5rem; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700;">
+                                <span style="color: #10B981;">True: 85%</span>
+                                <span style="color: #EF4444;">False: 15%</span>
+                            </div>
+                            <div style="width: 100%; height: 8px; background: var(--bg-color); border-radius: 4px; margin-top: 0.6rem; overflow: hidden; display: flex;">
+                                <div style="width: 85%; height: 100%; background: linear-gradient(90deg, #059669, #10B981); border-radius: 4px 0 0 4px;"></div>
+                                <div style="width: 15%; height: 100%; background: linear-gradient(90deg, #EF4444, #F87171); border-radius: 0 4px 4px 0;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div style="position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; background: var(--primary-color); transform: translate(-50%, -50%); filter: blur(120px); opacity: 0.15; z-index: -1; pointer-events: none;"></div>
             </div>
         </div>
     </section>
 
-    <footer
-        style="background-color: var(--bg-color); padding: 3rem 2rem; border-top: 1px solid var(--border-color); text-align: center;">
-        <p style="color: var(--text-secondary); font-size: 0.9rem;">&copy; 2026 Verify with AI. All rights reserved.</p>
+    <footer style="background-color: var(--surface-color); padding: 4rem 2rem; border-top: 1px solid var(--border-color); text-align: center;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--primary-gradient); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem;">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <div style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary);">Verify with AI</div>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; font-weight: 500;">&copy; 2026 Verify with AI. Truth. Evidence. Clarity.</p>
     </footer>
-
 </body>
 
 </html>

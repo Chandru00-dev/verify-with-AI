@@ -10,146 +10,166 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body class="about-page">
+<body class="about-page" style="background: var(--bg-color);">
 
-    <nav
-        style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; background: var(--surface-color); border-bottom: 1px solid var(--border-color);">
-        <a href="index.html"
-            style="font-weight: 700; font-size: 1.5rem; color: var(--primary-color); text-decoration: none;">Verify with
-            AI</a>
-        <div style="display: flex; gap: 1.5rem; align-items: center;">
-            <a href="index.html" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">Home</a>
-            <a href="login.html" class="primary-button">Sign In</a>
+    <nav class="glass-nav" style="padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div style="background: var(--primary-gradient); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <a href="index.html" style="font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; text-decoration: none;" class="text-gradient">Verify with AI</a>
+        </div>
+        <div style="display: flex; gap: 2rem; align-items: center;">
+            <a href="index.html" style="color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 1.05rem; transition: color 0.3s; opacity: 0.8;">Home</a>
+            <a href="login.html" class="primary-button btn-glow" style="border-radius: 2rem; padding: 0.6rem 1.8rem;">Sign In</a>
         </div>
     </nav>
 
-    <section class="about-section animate-fade" style="padding-top: 3rem;">
-        <div class="about-container">
-            <h2 class="about-section-title">Our Mission</h2>
-
-            <div class="mission-card">
-                <h2>Make truth accessible to everyone</h2>
-                <p>In a world filled with information — and misinformation — we believe everyone deserves clear,
-                    evidence-based answers.</p>
-                <p>Verify with AI was created to help users quickly understand <strong>what is likely true</strong>,
-                    <strong>what is probably false</strong>, and most importantly — <strong>why</strong>, with
-                    transparent sources and reasoning.
+    <!-- Mission Section -->
+    <header class="hero-section" style="padding-bottom: 4rem; text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 10;">
+            <div class="premium-badge animate-up" style="animation-delay: 0.1s;">Our Mission</div>
+            <h1 class="animate-up" style="font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.04em; animation-delay: 0.2s;">
+                Make truth <span class="text-gradient">accessible</span> to everyone.
+            </h1>
+            <div class="premium-card animate-up" style="margin-top: 3rem; text-align: left; animation-delay: 0.3s; background: var(--surface-glass); backdrop-filter: blur(12px);">
+                <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.8;">
+                    In a world filled with information — and misinformation — we believe everyone deserves clear, evidence-based answers.
                 </p>
-                <p>We don't just give opinions. We analyze content using advanced AI, cross-reference claims, and show
-                    you the evidence trail.</p>
+                <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.8;">
+                    <strong>Verify with AI</strong> was created to help users quickly understand <span style="color: var(--primary-color); font-weight: 600;">what is likely true</span>, <span style="color: var(--danger-color); font-weight: 600;">what is probably false</span>, and most importantly — <strong style="color: var(--text-primary);">why</strong>, with transparent sources and reasoning.
+                </p>
+                <p style="font-size: 1.2rem; color: var(--text-secondary); line-height: 1.8;">
+                    We don't just give opinions. We analyze content using advanced AI, cross-reference claims, and show you the evidence trail.
+                </p>
             </div>
         </div>
-    </section>
+    </header>
 
-    <section class="about-section" style="background: var(--about-light-gray);">
-        <div class="about-container">
-            <h2 class="about-section-title">How It Works</h2>
-            <div class="steps-container">
-                <div class="step-card animate-up" style="animation-delay: 0.1s;">
-                    <div class="step-number">1</div>
-                    <h3>Create Account</h3>
-                    <p>Login or signup to securely store your analysis history and preferences.</p>
-                </div>
-                <div class="step-card animate-up" style="animation-delay: 0.3s;">
-                    <div class="step-number">2</div>
-                    <h3>Input Content</h3>
-                    <p>Paste a YouTube URL, upload a PDF, or drop an image into the analyzer.</p>
-                </div>
-                <div class="step-card animate-up" style="animation-delay: 0.5s;">
-                    <div class="step-number">3</div>
-                    <h3>Wait for AI</h3>
-                    <p>Our advanced models scan transcripts, metadata, and cross-reference facts.</p>
-                </div>
-                <div class="step-card animate-up" style="animation-delay: 0.7s;">
-                    <div class="step-number">4</div>
-                    <h3>Get Evidence</h3>
-                    <p>Receive a clear report with truth percentages and specific source citations.</p>
-                </div>
+    <!-- How It Works Section -->
+    <section style="padding: 6rem 2rem; background: var(--surface-color); border-top: 1px solid var(--border-color);">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em;">How It Works</h2>
+                <p style="color: var(--text-secondary); font-size: 1.15rem; margin-top: 1rem;">Four simple steps to absolute clarity.</p>
             </div>
-        </div>
-    </section>
-
-    <section class="about-section">
-        <div class="about-container">
-            <h2 class="about-section-title">What We Offer</h2>
-
-            <div class="features-grid">
-                <div class="feature-item animate-up">
-                    <div class="feature-icon"><i class="fas fa-video"></i></div>
-                    <h3>YouTube Video Analysis</h3>
-                    <p>Paste any YouTube link — we summarize, fact-check key claims, and show truth/false percentages
-                        with sources.</p>
-                </div>
-
-                <div class="feature-item animate-up">
-                    <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
-                    <h3>PDF & Document Checking</h3>
-                    <p>Upload articles, reports, research papers — get clear truth scoring and highlighted misleading
-                        statements.</p>
-                </div>
-
-                <div class="feature-item animate-up">
-                    <div class="feature-icon"><i class="fas fa-image"></i></div>
-                    <h3>Image & Meme Verification</h3>
-                    <p>Check if that viral image, screenshot or infographic is real, edited, or taken out of context.
-                    </p>
-                </div>
-
-                <div class="feature-item animate-up">
-                    <div class="feature-icon"><i class="fas fa-language"></i></div>
-                    <h3>Multilingual Support</h3>
-                    <p>Analyze content in Tamil, Hindi, Telugu, Malayalam, or English to get answers in your language.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="about-section bw-theme" style="background: var(--about-white);">
-        <div class="about-container">
-            <h2 class="about-section-title">Pro Tips for Accuracy</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: var(--about-text-light);">How to prompt the AI for
-                the best possible analysis results.</p>
-
-            <div class="tips-grid">
-                <div class="tip-card animate-up" style="animation-delay: 0.1s;">
-                    <h4><i class="fas fa-bullseye"></i> Be Specific</h4>
-                    <p>Instead of "Analyze this," try "Check the health claims mentioned in the first 5 minutes of this
-                        video."</p>
-                </div>
-
-                <div class="tip-card animate-up" style="animation-delay: 0.2s;">
-                    <h4><i class="fas fa-search-plus"></i> Request Sources</h4>
-                    <p>Always ask for citations: "Provide the primary research papers or news articles that support your
-                        conclusion."</p>
-                </div>
-
-                <div class="tip-card animate-up" style="animation-delay: 0.3s;">
-                    <h4><i class="fas fa-globe"></i> Define Language</h4>
-                    <p>Get localized results by prompting in your language: "இந்த வீடியோவின் உண்மையை தமிழிலேயே
-                        ஆராயவும்."</p>
-                </div>
-
-                <div class="tip-card animate-up" style="animation-delay: 0.4s;">
-                    <h4><i class="fas fa-lightbulb"></i> Use Context</h4>
-                    <p>Mention what the file is: "This PDF is a political manifesto, verify the economic statistics
-                        mentioned on page 4."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="about-footer">
-        <div class="about-container">
-            <h3>Verify with AI</h3>
-            <p style="margin: 1rem 0 1.5rem;">Truth. Evidence. Clarity.</p>
-
             
+            <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="premium-card animate-up" style="padding: 2.5rem 2rem; animation-delay: 0.1s; text-align: center;">
+                    <div style="width: 56px; height: 56px; background: rgba(37, 99, 235, 0.1); color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; margin: 0 auto 1.5rem;">1</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem; font-weight: 700;">Create Account</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">Login or signup to securely store your analysis history and preferences.</p>
+                </div>
+                
+                <div class="premium-card animate-up" style="padding: 2.5rem 2rem; animation-delay: 0.2s; text-align: center;">
+                    <div style="width: 56px; height: 56px; background: rgba(37, 99, 235, 0.1); color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; margin: 0 auto 1.5rem;">2</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem; font-weight: 700;">Input Content</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">Paste a YouTube URL, upload a PDF, or drop an image into the analyzer.</p>
+                </div>
 
-            <p style="margin-top: 2rem; opacity: 0.8; font-size: 0.95rem;">
-                &copy; 2026 Verify with AI.
-            </p>
+                <div class="premium-card animate-up" style="padding: 2.5rem 2rem; animation-delay: 0.3s; text-align: center;">
+                    <div style="width: 56px; height: 56px; background: rgba(37, 99, 235, 0.1); color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; margin: 0 auto 1.5rem;">3</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem; font-weight: 700;">Wait for AI</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">Our advanced models scan transcripts, metadata, and cross-reference facts.</p>
+                </div>
+
+                <div class="premium-card animate-up" style="padding: 2.5rem 2rem; animation-delay: 0.4s; text-align: center;">
+                    <div style="width: 56px; height: 56px; background: rgba(37, 99, 235, 0.1); color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; margin: 0 auto 1.5rem;">4</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem; font-weight: 700;">Get Evidence</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">Receive a clear report with truth percentages and specific source citations.</p>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <!-- What We Offer -->
+    <section style="padding: 6rem 2rem; background: var(--bg-color);">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em;">What We Offer</h2>
+            </div>
+
+            <div class="bento-grid">
+                <div class="premium-card animate-up" style="background: linear-gradient(to bottom right, var(--surface-color), var(--bg-color));">
+                    <div class="feature-icon" style="background: white; width: 56px; height: 56px; box-shadow: var(--shadow-sm); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;"><i class="fas fa-video text-gradient" style="font-size: 1.5rem;"></i></div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 0.8rem;">YouTube Video Analysis</h3>
+                    <p style="color: var(--text-secondary);">Paste any YouTube link — we summarize, fact-check key claims, and show truth/false percentages with sources.</p>
+                </div>
+
+                <div class="premium-card animate-up" style="background: linear-gradient(to bottom right, var(--surface-color), var(--bg-color));">
+                    <div class="feature-icon" style="background: white; width: 56px; height: 56px; box-shadow: var(--shadow-sm); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;"><i class="fas fa-file-pdf" style="color: #EF4444; font-size: 1.5rem;"></i></div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 0.8rem;">PDF & Document Checking</h3>
+                    <p style="color: var(--text-secondary);">Upload articles, reports, research papers — get clear truth scoring and highlighted misleading statements.</p>
+                </div>
+
+                <div class="premium-card animate-up" style="background: linear-gradient(to bottom right, var(--surface-color), var(--bg-color));">
+                    <div class="feature-icon" style="background: white; width: 56px; height: 56px; box-shadow: var(--shadow-sm); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;"><i class="fas fa-image" style="color: #F59E0B; font-size: 1.5rem;"></i></div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 0.8rem;">Image & Meme Verification</h3>
+                    <p style="color: var(--text-secondary);">Check if that viral image, screenshot or infographic is real, edited, or taken out of context.</p>
+                </div>
+
+                <div class="premium-card animate-up" style="background: linear-gradient(to bottom right, var(--surface-color), var(--bg-color));">
+                    <div class="feature-icon" style="background: white; width: 56px; height: 56px; box-shadow: var(--shadow-sm); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;"><i class="fas fa-language" style="color: #10B981; font-size: 1.5rem;"></i></div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 0.8rem;">Multilingual Support</h3>
+                    <p style="color: var(--text-secondary);">Analyze content in Tamil, Hindi, Telugu, Malayalam, or English to get answers in your language.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pro Tips -->
+    <section style="padding: 6rem 2rem; background: var(--surface-color); border-top: 1px solid var(--border-color);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em;">Pro Tips for Accuracy</h2>
+                <p style="color: var(--text-secondary); font-size: 1.15rem; margin-top: 1rem;">How to prompt the AI for the best possible analysis results.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                <div class="premium-card animate-up" style="display: flex; gap: 1.5rem; align-items: flex-start; padding: 2rem;">
+                    <div style="width: 48px; height: 48px; background: rgba(37, 99, 235, 0.1); color: var(--primary-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;"><i class="fas fa-bullseye"></i></div>
+                    <div>
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">Be Specific</h4>
+                        <p style="color: var(--text-secondary);">Instead of "Analyze this," try "Check the health claims mentioned in the first 5 minutes of this video."</p>
+                    </div>
+                </div>
+
+                <div class="premium-card animate-up" style="display: flex; gap: 1.5rem; align-items: flex-start; padding: 2rem;">
+                    <div style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1); color: #10B981; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;"><i class="fas fa-search-plus"></i></div>
+                    <div>
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">Request Sources</h4>
+                        <p style="color: var(--text-secondary);">Always ask for citations: "Provide the primary research papers or news articles that support your conclusion."</p>
+                    </div>
+                </div>
+
+                <div class="premium-card animate-up" style="display: flex; gap: 1.5rem; align-items: flex-start; padding: 2rem;">
+                    <div style="width: 48px; height: 48px; background: rgba(245, 158, 11, 0.1); color: #F59E0B; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;"><i class="fas fa-globe"></i></div>
+                    <div>
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">Define Language</h4>
+                        <p style="color: var(--text-secondary);">Get localized results by prompting in your language: "இந்த வீடியோவின் உண்மையை தமிழிலேயே ஆராயவும்."</p>
+                    </div>
+                </div>
+
+                <div class="premium-card animate-up" style="display: flex; gap: 1.5rem; align-items: flex-start; padding: 2rem;">
+                    <div style="width: 48px; height: 48px; background: rgba(139, 92, 246, 0.1); color: #8b5cf6; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;"><i class="fas fa-lightbulb"></i></div>
+                    <div>
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">Use Context</h4>
+                        <p style="color: var(--text-secondary);">Mention what the file is: "This PDF is a political manifesto, verify the economic statistics mentioned on page 4."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--surface-color); padding: 4rem 2rem; border-top: 1px solid var(--border-color); text-align: center;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--primary-gradient); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem;">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <div style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary);">Verify with AI</div>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; font-weight: 500;">Truth. Evidence. Clarity.</p>
+        <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.85rem; opacity: 0.8;">&copy; 2026 Verify with AI.</p>
     </footer>
 
 </body>
