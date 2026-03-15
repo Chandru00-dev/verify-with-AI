@@ -603,6 +603,8 @@ async function loadUserProfile() {
 
             // Update Sidebar
             document.getElementById('sidebarUserName').textContent = user.name || 'User';
+            const sidebarEmail = document.getElementById('sidebarUserEmail');
+            if (sidebarEmail) sidebarEmail.textContent = user.email || '';
             if (user.profile_pic) {
                 const avatar = document.getElementById('sidebarAvatar');
                 avatar.innerHTML = `<img src="${user.profile_pic}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
