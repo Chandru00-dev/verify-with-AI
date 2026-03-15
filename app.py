@@ -64,13 +64,19 @@ microsoft = oauth.register(
 
 # Database configuration
 db_pass = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST', 'localhost')
+db_port = int(os.getenv('DB_PORT', 3306))
+db_user = os.getenv('DB_USER', 'root')
+db_name = os.getenv('DB_NAME', 'verify_ai')
 print(f"[INFO] DB Password Loaded: {'Yes' if db_pass else 'No'}")
 
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
+    'host': db_host,
+    'port': db_port,
+    'user': db_user,
     'password': db_pass or '',  # Validates if None, defaults to empty string if needed
-    'database': 'verify_ai'
+    'database': db_name,
+    'ssl': {'ssl': {}}
 }
 
 # File upload configuration

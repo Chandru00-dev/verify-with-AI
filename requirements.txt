@@ -8,3 +8,4 @@ pypdf==4.0.1
 youtube-transcript-api
 Authlib
 beautifulsoup4
+gunicorn==21.2.0

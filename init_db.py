@@ -4,16 +4,24 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
+db_host = os.getenv('DB_HOST', 'localhost')
+db_user = os.getenv('DB_USER', 'root')
+db_pass = os.getenv('DB_PASSWORD', 'proceed')
+db_name = os.getenv('DB_NAME', 'verify_ai')
+
 # Connect to MySQL server (no database selected yet)
+db_port = int(os.getenv('DB_PORT', 3306))
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': os.getenv('DB_PASSWORD', 'proceed')
+    'host': db_host,
+    'port': db_port,
+    'user': db_user,
+    'password': db_pass,
+    'ssl': {'ssl': {}}
 }
 
 SQL_COMMANDS = [
-    "CREATE DATABASE IF NOT EXISTS verify_ai;",
-    "USE verify_ai;",
+    f"CREATE DATABASE IF NOT EXISTS {db_name};",
+    f"USE {db_name};",
     """
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,7 +65,7 @@ def init_db():
         conn.commit()
         cursor.close()
         conn.close()
-        print("\nSUCCESS! Database 'verify_ai' and tables created.")
+        print(f"\nSUCCESS! Database '{db_name}' and tables created.")
         
     except Exception as e:
         print(f"\nCRITICAL ERROR: {e}")
