@@ -637,7 +637,7 @@ def get_user_profile():
             return jsonify({'error': 'Database connection failed'}), 500
         
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT id, name, email, profile_pic FROM users WHERE id = %s", (user_id,))
+        cursor.execute("SELECT id, name, email, profile_pic, phone FROM users WHERE id = %s", (user_id,))
         user = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -682,6 +682,9 @@ def update_user_profile():
         if profile_pic:
             update_fields.append("profile_pic = %s")
             params.append(profile_pic)
+        if phone is not None and phone != '':
+            update_fields.append("phone = %s")
+            params.append(phone)
             
         if not update_fields:
             return jsonify({'error': 'No fields to update'}), 400

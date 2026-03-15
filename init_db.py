@@ -30,6 +30,7 @@ SQL_COMMANDS = [
         password VARCHAR(255) NULL,
         auth_provider VARCHAR(20) DEFAULT 'email',
         provider_id VARCHAR(255),
+        phone VARCHAR(20) NULL,
         profile_pic TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         UNIQUE INDEX idx_provider (provider_id, auth_provider)
