@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory, session, redirec
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import datetime, timedelta
 import pymysql
 import os
@@ -21,6 +22,9 @@ import pypdf
 load_dotenv(override=True)
 
 app = Flask(__name__)
+# Crucial for Render: Tells Flask it is behind a proxy so url_for generates https:// links
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
 app.secret_key = os.getenv('SECRET_KEY', 'super_secret_key_for_session') # Required for session
 CORS(app)
 
