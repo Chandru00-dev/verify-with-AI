@@ -133,20 +133,33 @@ def get_youtube_content(url):
         if video_id_match:
             video_id = video_id_match.group(1)
             try:
-                # Get available transcripts
-                transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-                
-                # Try English (manual then auto), otherwise get the first available
-                try:
-                    transcript = transcript_list.find_transcript(['en'])
-                except:
-                    # If English not found, find the first available transcript
-                    transcript = next(iter(transcript_list))
-                
-                transcript_data = transcript.fetch()
-                transcript_text = " ".join([item['text'] for item in transcript_data])
-                content_parts.append(f"VIDEO TRANSCRIPT: {transcript_text}")
-                print(f"[INFO] Successfully fetched transcript ({transcript.language})")
+                # Support new v1.x and old v0.x API formats
+                if hasattr(YouTubeTranscriptApi, 'list_transcripts'):
+                    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+                elif hasattr(YouTubeTranscriptApi, 'get_transcript'):
+                    # Old api structure where you just get it
+                    transcript_data = YouTubeTranscriptApi.get_transcript(video_id)
+                    transcript_text = " ".join([item['text'] for item in transcript_data])
+                    content_parts.append(f"VIDEO TRANSCRIPT: {transcript_text}")
+                    print(f"[INFO] Successfully fetched transcript (default)")
+                    transcript_list = None
+                else:
+                    # Alternative structure
+                    api = YouTubeTranscriptApi()
+                    transcript_list = api.list(video_id)
+
+                if transcript_list:
+                    # Try English (manual then auto), otherwise get the first available
+                    try:
+                        transcript = transcript_list.find_transcript(['en'])
+                    except:
+                        transcript = next(iter(transcript_list))
+                    
+                    transcript_data = transcript.fetch()
+                    transcript_text = " ".join([item['text'] for item in transcript_data])
+                    content_parts.append(f"VIDEO TRANSCRIPT: {transcript_text}")
+                    print(f"[INFO] Successfully fetched transcript ({transcript.language})")
+
             except Exception as e:
                 print(f"[WARNING] Could not get transcript: {e}")
         
@@ -411,15 +424,15 @@ def analyze():
         prompt_prefix = ""
         
         if input_type == 'link':
-            # NEW: Extract content from YouTube link (Metadata + Transcript)
+            # Extract content from YouTube link (Metadata + Transcript)
             yt_content = get_youtube_content(input_content)
             if yt_content:
                 print(f"[INFO] Successfully extracted content from YouTube")
-                content_text = f"YouTube video content: {yt_content[:20000]}" # Increased limit to 20k
-                prompt_prefix = f"Analyze this YouTube video using the provided metadata and transcript: {input_content}\n\nCONTENT:\n{content_text}\n\n"
+                content_text = f"Analyzed Content: {yt_content[:20000]}" # Increased limit to 20k
+                prompt_prefix = f"I have already extracted the metadata and transcript from a YouTube video for you. Do NOT attempt to browse the internet to view the link. You must base your analysis entirely on the following extracted text.\n\n[EXTRACTED VIDEO DATA]:\n{content_text}\n\n"
             else:
-                content_text = f"YouTube video: {input_content}"
-                prompt_prefix = f"Analyze this YouTube video link: {input_content}\n(Note: Content could not be extracted, please analyze based on your knowledge of this URL if possible)\n\n"
+                content_text = f"Target Link: {input_content}"
+                prompt_prefix = f"The user has provided a link: {input_content}\nDue to extraction failing, I am unable to provide the transcript. Please do your absolute best to analyze any credibility, truthfulness, or known facts about this exact URL using your pre-trained knowledge. If you cannot, explain why clearly.\n\n"
         elif input_type == 'text' or (input_type == 'pdf' and input_content):
             content_text = input_content
             prompt_prefix = f"Analyze this content: {input_content}\n\n"
