@@ -102,71 +102,27 @@ def get_db_connection():
         return None
 
 def get_youtube_content(url):
-    """Extract metadata and transcript from YouTube video"""
-    content_parts = []
-    
+    """Extract metadata and transcript from YouTube video using Jina Reader to bypass Cloud IP Blocks"""
     try:
-        # 1. Metadata Extraction (Title and Description)
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
-        try:
-            # Handle youtu.be vs youtube.com
-            full_url = url
-            if 'youtu.be/' in url:
-                video_id = url.split('/')[-1].split('?')[0]
-                full_url = f"https://www.youtube.com/watch?v={video_id}"
+        # Resolve youtu.be links to full links for Jina
+        full_url = url
+        if 'youtu.be/' in url:
+            video_id = url.split('/')[-1].split('?')[0]
+            full_url = f"https://www.youtube.com/watch?v={video_id}"            
             
-            response = requests.get(full_url, headers=headers, timeout=10)
-            if response.status_code == 200:
-                soup = BeautifulSoup(response.text, 'html.parser')
-                title = soup.title.string if soup.title else "Unknown Title"
-                description_meta = soup.find('meta', {'name': 'description'})
-                description = description_meta['content'] if description_meta else "No description available"
-                
-                content_parts.append(f"VIDEO TITLE: {title}")
-                content_parts.append(f"VIDEO DESCRIPTION: {description}")
-                print(f"[INFO] Scraped metadata: {title[:50]}...")
-        except Exception as e:
-            print(f"[WARNING] Metadata scraping failed: {e}")
-
-        # 2. Transcript Extraction
-        video_id_match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', url)
-        if video_id_match:
-            video_id = video_id_match.group(1)
-            try:
-                # Support new v1.x and old v0.x API formats
-                if hasattr(YouTubeTranscriptApi, 'list_transcripts'):
-                    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-                elif hasattr(YouTubeTranscriptApi, 'get_transcript'):
-                    # Old api structure where you just get it
-                    transcript_data = YouTubeTranscriptApi.get_transcript(video_id)
-                    transcript_text = " ".join([item['text'] for item in transcript_data])
-                    content_parts.append(f"VIDEO TRANSCRIPT: {transcript_text}")
-                    print(f"[INFO] Successfully fetched transcript (default)")
-                    transcript_list = None
-                else:
-                    # Alternative structure
-                    api = YouTubeTranscriptApi()
-                    transcript_list = api.list(video_id)
-
-                if transcript_list:
-                    # Try English (manual then auto), otherwise get the first available
-                    try:
-                        transcript = transcript_list.find_transcript(['en'])
-                    except:
-                        transcript = next(iter(transcript_list))
-                    
-                    transcript_data = transcript.fetch()
-                    transcript_text = " ".join([item['text'] for item in transcript_data])
-                    content_parts.append(f"VIDEO TRANSCRIPT: {transcript_text}")
-                    print(f"[INFO] Successfully fetched transcript ({transcript.language})")
-
-            except Exception as e:
-                print(f"[WARNING] Could not get transcript: {e}")
+        print(f"[INFO] Bypassing Google IP blocks using Jina Reader API for: {full_url}")
+        jina_url = f"https://r.jina.ai/{full_url}"
         
-        if not content_parts:
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        response = requests.get(jina_url, headers=headers, timeout=20)
+        
+        if response.status_code == 200 and len(response.text) > 500:
+            print(f"[INFO] Successfully extracted {len(response.text)} characters via Jina.")
+            # Jina returns markdown. We return a slice to not overload the AI.
+            return response.text[:20000]
+        else:
+            print(f"[WARNING] Jina extraction failed with status {response.status_code}")
             return None
-            
-        return "\n\n".join(content_parts)
             
     except Exception as e:
         print(f"[ERROR] YouTube extraction failed: {e}")
