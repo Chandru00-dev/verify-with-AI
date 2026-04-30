@@ -40,7 +40,7 @@ Ensure the following dependencies are installed before setting up the applicatio
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/verify-with-ai.git
+https://github.com/Chandru00-dev/verify-with-AI.git
 cd verify-with-ai
 ```
 
